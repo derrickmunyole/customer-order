@@ -48,5 +48,5 @@ jobs:
       - name: Run security scans
         run: |
           bandit -r ./app -ll  # Scan source code for security issues
-          safety check         # Scan dependencies for known vulnerabilities
+          safety scan         # Scan dependencies for known vulnerabilities
       
