@@ -17,6 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create coverage directory
+        run: |
+          mkdir -p /app/cov
+          chmod 777 /app/cov
       
       - name: Test with Coverage
         env:
