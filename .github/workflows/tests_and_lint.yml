@@ -26,8 +26,8 @@ jobs:
           DB_PASS: ${{ secrets.DB_PASS }}
         run: |
           docker compose run --rm app sh -c "
-            sudo mkdir -p /app/cov && 
-            sudo chmod 777 /app/cov &&
+            mkdir -p /app/cov && 
+            chmod 777 /app/cov &&
             python manage.py wait_for_db && 
             python manage.py test"
 
