@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from coverage import Coverage
 
 load_dotenv()
 
@@ -91,6 +92,9 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
+
+env_data_file = os.environ.get('COVERAGE_FILE')
+cov = Coverage(data_file=env_data_file)
 
 
 # Password validation
