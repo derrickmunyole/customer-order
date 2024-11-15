@@ -1,3 +1,4 @@
+import os
 from django.test.runner import DiscoverRunner
 from coverage import Coverage
 
@@ -5,7 +6,7 @@ from coverage import Coverage
 class CoverageRunner(DiscoverRunner):
     def __init__(self, *args, **kwargs):
         self.coverage = Coverage(
-            data_file='.coverage',
+            data_file=os.path.join(os.getcwd(), '.coverage'),
             source=[
                 'core',
                 'customers',
