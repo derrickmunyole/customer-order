@@ -5,12 +5,8 @@ from coverage import Coverage
 
 class CoverageRunner(DiscoverRunner):
     def __init__(self, *args, **kwargs):
-
-        coverage_dir = '/app/cov'
-        os.makedirs(coverage_dir, exist_ok=True)
-
         self.coverage = Coverage(
-            data_file=os.path.join(coverage_dir, '.coverage'),
+            data_file=os.path.join('/app/cov/.coverage'),
             source=[
                 'core',
                 'customers',
@@ -25,9 +21,7 @@ class CoverageRunner(DiscoverRunner):
                 '*/apps.py',
                 'manage.py'
             ]
-
         )
-
         super().__init__(*args, **kwargs)
 
     def run_tests(self, test_labels, extra_tests=None, **kwargs):
@@ -40,6 +34,6 @@ class CoverageRunner(DiscoverRunner):
         self.coverage.stop()
         self.coverage.save()
         self.coverage.report()
-        self.coverage.xml_report(outfile='./cov/.coverage.xml')
-
+        self.coverage.xml_report(outfile='/app/cov/.coverage.xml')
+        
         return results
