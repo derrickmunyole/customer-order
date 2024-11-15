@@ -93,6 +93,10 @@ DATABASES = {
     }
 }
 
+# Coverage Configurations
+TEST_RUNNER = 'app.test_runner.CoverageRunner'
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
