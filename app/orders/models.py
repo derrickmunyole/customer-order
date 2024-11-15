@@ -40,7 +40,7 @@ class Order(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     item = models.CharField(max_length=100)
-    amount = models.DecimalField(max_digits=4, decimal_places=2)
+    amount = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.IntegerField(
         null=False,
         validators=[
