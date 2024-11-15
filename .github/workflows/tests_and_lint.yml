@@ -46,7 +46,9 @@ jobs:
           pip install bandit safety
       
       - name: Run security scans
+        env:
+          SAFETY_API_KEY: ${{secrets.SAFETY_API_KEY}}
         run: |
           bandit -r ./app -ll  # Scan source code for security issues
-          safety scan         # Scan dependencies for known vulnerabilities
+          safety scan  --key $SAFETY_API_KEY   # Scan dependencies for known vulnerabilities
       
