@@ -34,6 +34,5 @@ class CoverageRunner(DiscoverRunner):
         self.coverage.stop()
         self.coverage.save()
         self.coverage.report()
-        self.coverage.xml_report(outfile='/app/cov/.coverage.xml')
-        
+        self.coverage.xml_report(outfile='/app/cov/coverage.xml')
         return results
