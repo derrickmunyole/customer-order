@@ -6,7 +6,7 @@ from coverage import Coverage
 class CoverageRunner(DiscoverRunner):
     def __init__(self, *args, **kwargs):
         self.coverage = Coverage(
-            data_file=os.path.join(os.getcwd(), '.coverage'),
+            data_file=os.path.join('/app/cov/.coverage'),
             source=[
                 'core',
                 'customers',
@@ -34,6 +34,8 @@ class CoverageRunner(DiscoverRunner):
             **kwargs
         )
         self.coverage.stop()
-        self.coverage.html_report(directory='coveragereport')
+        self.coverage.save()
+        self.coverage.report()
+        self.coverage.xml_report(outfile='/app/cov/.coverage.xml')
 
         return results

@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: coverage.xml
+          path: /app/cov/.coverage.xml
 
       - name: Lint
         run: docker compose run --rm app sh -c "flake8"

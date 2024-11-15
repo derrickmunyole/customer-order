@@ -40,7 +40,9 @@ RUN python -m venv /py && \
         --no-create-home \
         django-user && \
     # Make scripts executable
-    chmod -R +x /scripts 
+    chmod -R +x /scripts && \
+    mkdir -p /app/cov && \
+    chown -R django-user:django-user /app/cov
 # Add scripts and virtual environment to PATH
 ENV PATH="/scripts:/py/bin:$PATH"
 
