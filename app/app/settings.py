@@ -93,9 +93,6 @@ DATABASES = {
     }
 }
 
-env_data_file = os.environ.get('COVERAGE_FILE')
-cov = Coverage(data_file=env_data_file)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
