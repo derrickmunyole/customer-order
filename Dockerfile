@@ -46,8 +46,5 @@ RUN python -m venv /py && \
 # Add scripts and virtual environment to PATH
 ENV PATH="/scripts:/py/bin:$PATH"
 
-# Switch to non-root user for security
-USER django-user
-
 # Execute run.sh script when container starts
 CMD ["run.sh"]
