@@ -22,8 +22,10 @@ class OrderAPITests(APITestCase):
             quantity=2,
             customer=self.customer
         )
-        self.list_url = reverse('order-list')
-        self.detail_url = reverse('order-detail', args=[str(self.order.id)])
+        self.list_url = reverse('orders:order-list')
+        self.detail_url = reverse(
+            'orders:order-detail', args=[str(self.order.id)]
+        )
 
     def test_get_orders(self):
         response = self.client.get(self.list_url)
