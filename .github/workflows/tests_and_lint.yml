@@ -17,8 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Remove existing coverage file
-        run:  rm -f .coverage
       
       - name: Test with Coverage
         env:
@@ -26,6 +24,7 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          COVERAGE_FILE: /temp/.coverage
         run: docker compose run --rm app sh -c "python manage.py wait_for_db && coverage run manage.py test && coverage report"
 
       - name: Upload Coverage Report
