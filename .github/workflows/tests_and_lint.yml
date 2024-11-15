@@ -25,11 +25,13 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
         run: |
+          mkdir -p ./cov
           docker compose run --rm app sh -c "
             mkdir -p /app/cov && 
             chmod 777 /app/cov &&
             su django-user -c 'python manage.py wait_for_db && 
-            python manage.py test'"
+            python manage.py test' &&
+            cp /app/cov/coverage.xml /app/cov/.coverage ./cov/"
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3
