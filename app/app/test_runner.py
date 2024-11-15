@@ -5,8 +5,12 @@ from coverage import Coverage
 
 class CoverageRunner(DiscoverRunner):
     def __init__(self, *args, **kwargs):
+
+        coverage_dir = '/app/cov'
+        os.makedirs(coverage_dir, exist_ok=True)
+
         self.coverage = Coverage(
-            data_file=os.path.join('./cov/.coverage'),
+            data_file=os.path.join(coverage_dir, '.coverage'),
             source=[
                 'core',
                 'customers',

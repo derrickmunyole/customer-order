@@ -19,8 +19,9 @@ jobs:
 
       - name: Create coverage directory
         run: |
-          mkdir -p ./cov
-          chmod 777 ./cov
+          sudo mkdir -p /app/cov
+          sudo chmod 777 /app/cov
+
       
       - name: Test with Coverage
         env:
