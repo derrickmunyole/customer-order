@@ -5,7 +5,6 @@ LABEL maintainer: "Derrick"
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
 
-
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./scripts /scripts
@@ -41,13 +40,11 @@ RUN python -m venv /py && \
         --no-create-home \
         django-user && \
     # Make scripts executable
-    chmod -R +x /scripts
-
+    chmod -R +x /scripts && \
+    mkdir -p /app/cov && \
+    chown -R django-user:django-user /app/cov
 # Add scripts and virtual environment to PATH
 ENV PATH="/scripts:/py/bin:$PATH"
-
-# Switch to non-root user for security
-USER django-user
 
 # Execute run.sh script when container starts
 CMD ["run.sh"]

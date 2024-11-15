@@ -163,3 +163,5 @@ cython_debug/
 
 .qdrant-initialized
 .flake8
+.coverage
+coveragereport/
