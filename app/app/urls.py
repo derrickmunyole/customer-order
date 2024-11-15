@@ -31,4 +31,5 @@ urlpatterns = [
         name='api-docs'
         ),
     path('auth/', include('authentication.urls')),
+    path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
 ]
