@@ -1,15 +1,23 @@
-from django.db.models.signals import post_save
 from django.dispatch import receiver
-from users.models import User
+from allauth.account.signals import user_signed_up
 from .models import Customer
+from uuid import uuid4
 
 
-@receiver(post_save, sender=User)
-def create_customer(sender, instance, created, **kwargs):
-    if created:
+@receiver(user_signed_up)
+def create_customer_profile(sender, request, user, **kwargs):
+    if not Customer.objects.filter(user=user).exists():
+        social_account = user.socialaccount_set.first()
+        if social_account:
+            extra_data = social_account.extra_data
+            name = extra_data.get('name', user.username)
+        else:
+            name = user.username
+
+        customer_code = str(uuid4())[:8].upper()
+
         Customer.objects.create(
-            user=instance,
-            name='',
-            code='',
-            phone=''
+            user=user,
+            name=name,
+            code=customer_code
         )
