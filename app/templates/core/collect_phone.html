@@ -15,19 +15,14 @@
                 <form method="POST">
                     {% csrf_token %}
                     <div class="space-y-4">
-                        <!-- Phone Number Input -->
                         <div>
-                            <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                            <input type="tel" 
-                                   name="phone_number" 
-                                   id="phone_number" 
-                                   required
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            {% if form.phone_number.errors %}
-                                <p class="mt-2 text-sm text-red-600">{{ form.phone_number.errors.0 }}</p>
+                            <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                                <p class="mt-2 text-sm text-red-600">{{ form.phone.errors.0 }}</p>
                             {% endif %}
                         </div>
-
+                
                         <div class="flex justify-end">
                             <button type="submit" 
                                     class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-200 ease-in-out">
@@ -36,6 +31,7 @@
                         </div>
                     </div>
                 </form>
+                
             </div>
         </div>
     {% else %}
