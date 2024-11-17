@@ -1,0 +1,75 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">Welcome, {{ user.username.capitalize }}!</h1>
+        </div>
+        <!-- Enhanced Product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for item in items %}
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">{{ item.item }}</h3>
+                                <p class="mt-2 text-2xl font-bold text-blue-600">${{ item.amount }}</p>
+                            </div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                In Stock
+                            </span>
+                        </div>
+                        <button onclick="createOrder({{ item }})"
+                            class="mt-4 w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            Place Order
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="flex justify-end mb-6">
+            <a href="{% url 'google_login' %}?next=/" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-200 ease-in-out">
+                Sign In
+            </a>
+        </div>
+        <div class="text-center text-gray-600">
+            <p>Please sign in to view and order items.</p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if user.is_authenticated %}
+<script src="{% static 'js/orders.js' %}"></script>
+<script>
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0 opacity-100';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('translate-y-full', 'opacity-0');
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+
+    // Hook up the response handler to createOrder
+    document.addEventListener('DOMContentLoaded', () => {
+        window.handleOrderResponse = (data) => {
+            if(data.status === 'success') {
+                showToast('Order placed successfully!');
+            }
+        };
+    });
+</script>
+{% endif %}
+{% endblock %}

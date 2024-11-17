@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}Complete Profile{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-900">Complete Your Profile</h1>
+                </div>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="space-y-4">
+                        <!-- Phone Number Input -->
+                        <div>
+                            <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <input type="tel" 
+                                   name="phone_number" 
+                                   id="phone_number" 
+                                   required
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            {% if form.phone_number.errors %}
+                                <p class="mt-2 text-sm text-red-600">{{ form.phone_number.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-200 ease-in-out">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="flex justify-end mb-6">
+            <a href="{% url 'google_login' %}?next=/" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-200 ease-in-out">
+                Sign In
+            </a>
+        </div>
+        <div class="text-center text-gray-600">
+            <p>Please sign in to complete your profile.</p>
+        </div>
+    {% endif %}
+{% endblock %}
