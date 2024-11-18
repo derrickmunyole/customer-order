@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core',
     'customers',
     'orders',
+    'notifications'
 ]
 
 MIDDLEWARE = [
@@ -165,11 +166,21 @@ REST_FRAMEWORK = {
 }
 
 
-
+# Django-allauth extra configs
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'customers:collect_phone_number'
 LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGIN_ON_GET = True
+
+
+# AfricasTalking Credentials
+AFRICASTALKING_USERNAME = os.environ.get('AFRICASTALKING_USERNAME')
+AFRICASTALKING_API_KEY = os.environ.get('AFRICASTALKING_API_KEY')
+
