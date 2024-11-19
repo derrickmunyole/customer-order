@@ -14,7 +14,7 @@ class CustomerSignalTest(TestCase):
         )
 
         # Create a mock social account
-        social_account = SocialAccount.objects.create(
+        SocialAccount.objects.create(
             user=user,
             provider='google',
             extra_data={
