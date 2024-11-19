@@ -17,7 +17,6 @@ RUN python -m venv /py && \
 # Final stage
 FROM python:3.13-alpine
 ENV PYTHONUNBUFFERED 1
-ENV PATH="/scripts:/py/bin:$PATH"
 
 # Copy built wheels from builder
 COPY --from=builder /tmp/wheels /tmp/wheels
@@ -38,7 +37,6 @@ WORKDIR /app
 
 # Set up permissions
 RUN mkdir -p /app/cov && \
-    chmod -R +x /scripts && \
     chown -R django-user:django-user /app
 
 EXPOSE 8000
