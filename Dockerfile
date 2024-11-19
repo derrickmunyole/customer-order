@@ -1,6 +1,6 @@
 # Build stage
 FROM python:3.13-alpine AS builder
-ARG DEV=False
+ARG DEV=false
 ENV PYTHONUNBUFFERED 1
 
 # Copy requirements first to leverage cache
@@ -14,7 +14,7 @@ RUN python -m venv /py && \
     apk add --update --no-cache --virtual .tmp-build-deps \
         build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     /py/bin/pip wheel --no-cache-dir --no-deps --wheel-dir /tmp/wheels -r /tmp/requirements.txt && \
-    if [ "$DEV" == "True" ] ; then \
+    if [ "$DEV" = "true" ] ; then \
         /py/bin/pip install --no-cache-dir -r /tmp/requirements.dev.txt ; \
     fi
 
