@@ -24,6 +24,10 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          AFRICASTALKING_USERNAME: ${{ secrets.AFRICAS_TALKING_USERNAME }}
+          AFRICASTALKING_API_KEY: ${{ secrets.AFRICAS_TALKING_API_KEY }}
         run: |
           mkdir -p ./cov
           docker compose run --rm app sh -c "
