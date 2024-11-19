@@ -165,3 +165,8 @@ cython_debug/
 .flake8
 .coverage
 coveragereport/
+
+
+# Ansible configuration files
+ansible/templates/*.j2
+ansible/group_vars/all.yml
