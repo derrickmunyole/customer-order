@@ -168,5 +168,5 @@ coveragereport/
 
 
 # Ansible configuration files
-ansible/templates/*.j2
-ansible/group_vars/all.yml
+app/ansible/templates/*.j2
+app/ansible/group_vars/all.yml
