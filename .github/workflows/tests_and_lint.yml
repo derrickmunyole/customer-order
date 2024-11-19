@@ -30,8 +30,10 @@ jobs:
           AFRICASTALKING_API_KEY: ${{ secrets.AFRICAS_TALKING_API_KEY }}
         run: |
           mkdir -p ./cov
+          # Build first with the build arg
+          docker compose build --build-arg DEV=true app
+          # Then run the tests
           docker compose run --rm \
-            --build-arg DEV=true \
             -e DB_HOST -e DB_NAME -e DB_USER -e DB_PASS \
             -e DJANGO_SECRET_KEY -e DJANGO_ALLOWED_HOSTS \
             -e AFRICASTALKING_USERNAME -e AFRICASTALKING_API_KEY \
@@ -40,7 +42,7 @@ jobs:
               chmod 777 /app/cov &&
               su django-user -c 'python manage.py wait_for_db && 
               python manage.py test'"
-
+      
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3
