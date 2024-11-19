@@ -3,8 +3,7 @@ services:
       build:
         context: .
         args:
-          - DEV=False
-      user: django-user    
+          - DEV=False   
       expose:
         - "8000"
       volumes:
