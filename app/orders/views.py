@@ -8,6 +8,9 @@ from psycopg2.errors import IntegrityError
 from rest_framework.response import Response
 from rest_framework import status, serializers
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 
 from orders import serializers as orders_serializers
 from customers.models import Customer
@@ -88,7 +91,9 @@ class OrderViewSet(ModelViewSet):
 
     def get_queryset(self):
         """Fetch orders for authenticated users"""
-        return self.queryset.filter(customer=self.request.user.customer).order_by('-id')
+        return self.queryset.filter(
+            customer=self.request.user.customer
+            ).order_by('-id')
 
     def list(self, request):
         """Return list of orders for authenticated user"""
@@ -114,12 +119,18 @@ class OrderViewSet(ModelViewSet):
                 }
             )
             serializer.save(customer=customer)
-        except (IntegrityError, DjangoValidationError, KeyError, Exception) as e:
+        except (
+                IntegrityError,
+                DjangoValidationError,
+                KeyError,
+                Exception) as e:
             # Log the detailed error for debugging
             logger.error(f"Error creating order: {str(e)}")
             # Return a generic error message to the client
             raise serializers.ValidationError({
-                "error": "Unable to process your order. Please try again later."
+                "error": (
+                    "Unable to process your order. Please try again later."
+                    )
             })
 
     def update(self, request, pk=None):
@@ -141,3 +152,18 @@ class OrderViewSet(ModelViewSet):
         order = get_object_or_404(self.get_queryset(), pk=pk)
         order.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@login_required
+def orders_view(request):
+    orders = Order.objects.filter(
+        customer=request.user.customer
+    ).order_by('-created_at')
+
+    # Calculate total amount for each order
+    for order in orders:
+        order.total_amount = order.amount * order.quantity
+
+    return render(request, 'core:orders.html', {
+        'orders': orders
+    })
