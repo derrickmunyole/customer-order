@@ -14,7 +14,6 @@ RUN python -m venv /py && \
     apk add --update --no-cache --virtual .tmp-build-deps \
         build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     /py/bin/pip wheel --no-cache-dir --no-deps --wheel-dir /tmp/wheels -r /tmp/requirements.txt && \
-    ARG DEV=false \
     if [ "$DEV" == "True" ] ; then \
         /py/bin/pip install --no-cache-dir -r /tmp/requirements.dev.txt ; \
     fi
