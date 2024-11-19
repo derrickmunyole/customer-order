@@ -33,7 +33,6 @@ RUN apk add --update --no-cache \
     adduser --disabled-password django-user
 
 # Copy application code
-COPY ./scripts /scripts
 COPY ./app /app
 WORKDIR /app
 
