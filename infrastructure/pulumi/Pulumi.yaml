@@ -1,0 +1,11 @@
+name: forever_locket
+description: Infrastructure code for forever locket app
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-python
