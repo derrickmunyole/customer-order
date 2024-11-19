@@ -31,6 +31,8 @@ RUN apk add --update --no-cache \
     rm -rf /tmp && \
     adduser --disabled-password django-user
 
+ENV PATH="/py/bin:$PATH"
+
 # Copy application code
 COPY ./app /app
 WORKDIR /app
