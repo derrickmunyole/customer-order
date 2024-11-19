@@ -3,24 +3,47 @@ services:
       build:
         context: .
         args:
-          - DEV=True
-          
-      ports:
-        - "8000:8000"
+          - DEV=False
+      user: django-user    
+      expose:
+        - "8000"
       volumes:
         - "./app:/app"
+        - static_volume:/app/static
       command: >
         sh -c "python manage.py wait_for_db &&
                python manage.py migrate &&
-               python manage.py runserver 0.0.0.0:8000"
+               python manage.py collectstatic --noinput &&
+               gunicorn app.wsgi:application --bind 0.0.0.0:8000"
       environment:
         - DB_HOST=${DB_HOST}
         - DB_NAME=${DB_NAME}
         - DB_USER=${DB_USER}
         - DB_PASS=${DB_PASS}
-        - DEBUG=1
+        - AFRICASTALKING_USERNAME=${AFRICASTALKING_USERNAME}
+        - AFRICASTALKING_API_KEY=${AFRICASTALKING_API_KEY}
+        - DJANGO_SECRET_KEY=${DJANGOSECRET_KEY}
+        - DEBUG=0
+        - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
       depends_on:
         - db
+
+    nginx:
+      build:
+        context: ./infrastructure/nginx
+      volumes:
+        - ./app/staticfiles:/vol/static
+        - ./nginx/conf.d:/etc/nginx/conf.d
+      environment:
+        - LISTEN_PORT=80
+        - APP_HOST=app
+        - APP_PORT=8000
+      ports:
+        - "80:80"
+      depends_on:
+        - app
+
+
 
     db:
       image: postgres:16.4-alpine
@@ -31,6 +54,6 @@ services:
         - POSTGRES_USER=${DB_USER}
         - POSTGRES_PASSWORD=${DB_PASS}
 
-
 volumes:
   dev-db-data:
+  static_volume:
