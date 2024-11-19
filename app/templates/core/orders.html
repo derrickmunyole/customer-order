@@ -1,0 +1,92 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">My Orders</h1>
+    <a href="{% url 'home' %}" 
+       class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+        </svg>
+        Place New Order
+    </a>
+</div>
+
+{% if orders %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for order in orders %}
+    <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">{{ order.item }}</h3>
+                    <p class="mt-2 text-2xl font-bold text-blue-600">KES{{ order.amount }}</p>
+                    <div class="mt-2 space-y-1">
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Quantity:</span> {{ order.quantity }}
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Total Amount:</span> KES{{ order.amount|multiply:order.quantity }}
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Order ID:</span> 
+                            <span class="font-mono">{{ order.id|truncatechars:12 }}</span>
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Ordered:</span> 
+                            {{ order.created_at|date:"M d, Y H:i" }}
+                        </p>
+                    </div>
+                </div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                    Ordered
+                </span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="text-center py-12">
+    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+    </svg>
+    <h3 class="mt-2 text-sm font-medium text-gray-900">No orders yet</h3>
+    <p class="mt-1 text-sm text-gray-500">Get started by placing your first order.</p>
+    <div class="mt-6">
+        <a href="{% url 'home' %}" 
+           class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+            </svg>
+            Place First Order
+        </a>
+    </div>
+</div>
+{% endif %}
+
+{% else %}
+<div class="flex justify-center w-full">
+    <a href="{% url 'login' %}" 
+       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-200 ease-in-out">
+        Sign In to View Orders
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if user.is_authenticated %}
+<script>
+    // Add any order-specific JavaScript functionality here
+</script>
+{% endif %}
+{% endblock %}
