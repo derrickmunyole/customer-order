@@ -32,5 +32,12 @@ urlpatterns = [
         ),
     path('', include(('core.urls', 'core'), namespace='core')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
+    path(
+        'customers/',
+        include(
+            ('customers.urls', 'customers'),
+            namespace='customers'
+        ),
+    ),
     path('accounts/', include('allauth.urls')),
 ]
