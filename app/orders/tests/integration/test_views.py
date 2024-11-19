@@ -35,7 +35,9 @@ class OrderAPITests(APITestCase):
         )
 
         self.list_url = reverse('orders:order-list')
-        self.detail_url = reverse('orders:order-detail', args=[str(self.order.id)])
+        self.detail_url = reverse(
+            'orders:order-detail', args=[str(self.order.id)]
+            )
 
     def test_get_orders(self):
         """Test retrieving authenticated user's orders"""
@@ -54,7 +56,9 @@ class OrderAPITests(APITestCase):
         response = self.client.post(self.list_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['item'], "Item B")
-        self.assertEqual(response.data['customer'].get('id'), str(self.customer.id))
+        self.assertEqual(
+            response.data['customer'].get('id'), str(self.customer.id)
+            )
 
     def test_create_order_invalid_data(self):
         """Test order creation with invalid data"""
@@ -98,7 +102,9 @@ class OrderAPITests(APITestCase):
     def test_create_order_integrity_error(self):
         """Test order creation with integrity error"""
         # Mock IntegrityError scenario
-        with patch('orders.views.Customer.objects.get_or_create') as mock_get_or_create:
+        with patch(
+            'orders.views.Customer.objects.get_or_create'
+                ) as mock_get_or_create:
             mock_get_or_create.side_effect = IntegrityError()
             data = {
                 "item": "Test Item",
@@ -115,7 +121,9 @@ class OrderAPITests(APITestCase):
     def test_get_nonexistent_order(self):
         """Test retrieving a non-existent order returns 404"""
         non_existent_uuid = str(uuid4())
-        non_existent_url = reverse('orders:order-detail', args=[non_existent_uuid])
+        non_existent_url = reverse(
+            'orders:order-detail', args=[non_existent_uuid]
+            )
         response = self.client.get(non_existent_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -132,15 +140,21 @@ class OrderAPITests(APITestCase):
     def test_access_other_user_order(self):
         """Test user cannot access another user's order"""
         # Create another user and order
-        other_user = User.objects.create(username='other', email='other@example.com')
-        other_customer = Customer.objects.create(user=other_user, name='Other Customer')
+        other_user = User.objects.create(
+            username='other', email='other@example.com'
+            )
+        other_customer = Customer.objects.create(
+            user=other_user, name='Other Customer'
+            )
         other_order = Order.objects.create(
             item="Other Item",
             amount=99.99,
             quantity=1,
             customer=other_customer
         )
-        other_detail_url = reverse('orders:order-detail', args=[str(other_order.id)])
+        other_detail_url = reverse(
+            'orders:order-detail', args=[str(other_order.id)]
+            )
 
         response = self.client.get(other_detail_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

@@ -87,10 +87,9 @@ class OrderModelTests(TestCase):
             quantity=2,
             customer=self.customer
         )
-        
+
         with self.assertRaises(ValidationError):
             order.full_clean()
-
 
     def test_amount_decimal_places(self):
         """Test amount field decimal place constraint"""

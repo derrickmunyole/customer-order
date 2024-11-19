@@ -28,23 +28,10 @@ class CollectPhoneNumberViewTests(TestCase):
 
     def test_valid_phone_number(self):
         # Test submission with valid Kenyan phone number
-        response = self.client.post(self.url, {'phone': '0712345678'})  # Valid Kenyan format starting with 0
+        response = self.client.post(self.url, {'phone': '0712345678'})
         self.customer.refresh_from_db()
-        self.assertEqual(self.customer.phone, '+254712345678')  # Expected format after clean_phone
+        self.assertEqual(self.customer.phone, '+254712345678')
         self.assertRedirects(response, reverse('core:home'))
-
-
-    # def test_invalid_phone_number(self):
-    #     # Test submission with invalid phone number (less than 10 digits)
-    #     response = self.client.post(self.url, {'phone': '123'})
-    #     print(response)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertFormError(
-    #         response,
-    #         'form',
-    #         'phone',
-    #         'Enter a valid phone number.'
-    #     )
 
     def test_unauthorized_access(self):
         # Test access without login
