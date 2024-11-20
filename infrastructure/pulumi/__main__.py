@@ -2,6 +2,10 @@ import pulumi
 import pulumi_aws as aws
 
 
+config = pulumi.Config()
+allowed_ip = config.require_secret('ip_address')
+
+
 # Create a new VPC and subnet first
 vpc = aws.ec2.Vpc(
     "my-vpc",
@@ -36,7 +40,7 @@ security_group = aws.ec2.SecurityGroup(
             "protocol": "tcp",
             "from_port": 22,
             "to_port": 22,
-            "cidr_blocks": ["0.0.0.0/0"]
+            "cidr_blocks": [allowed_ip]
         }
     ],
     egress=[
