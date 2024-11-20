@@ -27,3 +27,5 @@ config:
     secure: AAABAAtcxJDst9mOWBtKrjdbnXlk2A8xCKS+YeIYnCNmnmsDjrJuSY4h1rA=
   forever_locket:django_allowed_hosts:
     secure: AAABANNTZ9F+cFvXoK3cNRNsL6CwOmJrekrsTMuWxIo0wGQDFD9/hMUCH75UkgYIG2gELMFRZLKtjmco8rdiRdY=
+  forever_locket:db_password:
+    secure: AAABADv3rYlqfwBN2HajfmmZdNLhM3MV/Vwg5XjHiG6N+hHHQYp5RgY7EQU=
