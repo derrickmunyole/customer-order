@@ -54,5 +54,5 @@ The project uses the following environment variables:
 **DJANGO_SECRET_KEY** Django Secret Key
 
 ## Known Issues and Limitations
-**Functional Tests**: Currently incomplete; only unit and integration tests are included.
+**Functional Tests**: Currently incomplete; only unit and integration tests are included.  
 **Deployment Limitations**: Initial deployment using Pulumi/Ansible may need further testing.
