@@ -1,0 +1,35 @@
+from .base import FunctionalTest
+from allauth.socialaccount.models import SocialAccount
+from django.contrib.auth.models import User
+from orders.models import Customer
+
+
+class CustomerCreationTest(FunctionalTest):
+    def setUp(self):
+        super().setUp()
+        # Create test user and simulate OAuth authentication
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='testpass123',
+            email='test@example.com'
+        )
+
+        # Create mock social account data
+        self.social_account = SocialAccount.objects.create(
+            user=self.user,
+            provider='google',
+            extra_data={
+                'name': 'Test User',
+                'email': 'test@example.com'
+            }
+        )
+
+    def test_customer_created_on_signup(self):
+        # Verify customer was created with correct data
+        customer = Customer.objects.get(user=self.user)
+
+        # Check customer details
+        self.assertEqual(customer.name, 'Test User')
+        self.assertTrue(customer.code)  # Verify code exists
+        self.assertEqual(len(customer.code), 8)  # Verify code length
+        self.assertTrue(customer.code.isupper())  # Verify code is uppercase
