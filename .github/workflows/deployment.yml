@@ -30,10 +30,11 @@ jobs:
       - name: Get Pulumi outputs
         working-directory: ./infrastructure/pulumi
         run: |
-          PUBLIC_IP=$(pulumi stack output public_ip)
+          PUBLIC_IP=$(pulumi stack output public_ip --stack test)  # Specifying the stack to look in
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
         env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}       
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+              
         
           
       - name: Run Ansible playbook
