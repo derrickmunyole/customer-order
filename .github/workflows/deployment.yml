@@ -46,10 +46,10 @@ jobs:
           github.event.workflow_run.conclusion == 'success' && 
           github.ref == 'refs/heads/main'
         run: |
-          ansible-playbook -i inventory.yml playbook.yml
+          ansible-playbook -i inventory.yml deploy.yml
           
       - name: Dry run Ansible playbook
         working-directory: app/ansible
         if: github.event_name == 'pull_request'
         run: |
-          ansible-playbook -i inventory.yml playbook.yml --check --syntax-check
+          ansible-playbook -i inventory.yml deploy.yml --check --syntax-check
