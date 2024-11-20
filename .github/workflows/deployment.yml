@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - 'ansible/**'
+      - 'app/ansible/**'
   workflow_run:
     workflows: ["Infrastructure Deployment"]
     types:
@@ -28,7 +28,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           
       - name: Run Ansible playbook
-        working-directory: ./ansible
+        working-directory: .app/ansible
         # Only execute playbook on main branch after successful infrastructure deployment
         if: |
           (github.event_name == 'workflow_run' && 
