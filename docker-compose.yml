@@ -9,6 +9,7 @@ services:
       volumes:
         - "./app:/app"
         - static_volume:/app/static
+        - "/app/theme/static_src/node_modules" 
       command: >
         sh -c "mkdir -p /app/cov &&
               chown -R django-user:django-user /app &&
