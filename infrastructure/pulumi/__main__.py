@@ -19,8 +19,8 @@ db_port = config.require_secret('db_port')
 db_name = config.require_secret('db_name')
 
 # OAuth credentials
-oauth_client_id = config.require_secret('oauth_client_id')
-oauth_client_secret = config.require_secret('oauth_client_secret')
+oidc_client_id = config.require_secret('oauth_client_id')
+oidc_client_secret = config.require_secret('oauth_client_secret')
 oidc_provider_url = config.require_secret('oidc_provider_url')
 
 # API Credentials
