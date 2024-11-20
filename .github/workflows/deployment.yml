@@ -28,7 +28,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
 
       - name: Get Pulumi outputs
-        working-directory: app/infrastructure/pulumi
+        working-directory: ./infrastructure/pulumi
         run: |
           PUBLIC_IP=$(pulumi stack output public_ip)
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
