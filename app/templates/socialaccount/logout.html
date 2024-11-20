@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Out</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .logout-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
+        }
+
+        .menu {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .menu ul, .messages ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu a {
+            color: #3c4043;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .menu a:hover {
+            color: #1a73e8;
+        }
+
+        .messages {
+            background-color: #e8f0fe;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.5rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        {% if messages %}
+        <div class="messages">
+            <strong>Messages:</strong>
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="menu">
+            <strong>Menu:</strong>
+            <ul>
+                <li><a href="/accounts/email/">Change Email</a></li>
+                <li><a href="/accounts/password/change/">Change Password</a></li>
+                <li><a href="/accounts/3rdparty/">Account Connections</a></li>
+                <li><a href="/accounts/logout/">Sign Out</a></li>
+            </ul>
+        </div>
+
+        <h1>Sign Out</h1>
+
+        <p>Are you sure you want to sign out?</p>
+
+        <form method="post" action="

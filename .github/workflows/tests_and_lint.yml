@@ -24,13 +24,25 @@ jobs:
           DB_NAME: ${{ secrets.DB_NAME }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          AFRICASTALKING_USERNAME: ${{ secrets.AFRICAS_TALKING_USERNAME }}
+          AFRICASTALKING_API_KEY: ${{ secrets.AFRICAS_TALKING_API_KEY }}
         run: |
           mkdir -p ./cov
-          docker compose run --rm app sh -c "
-            mkdir -p /app/cov && 
-            chmod 777 /app/cov &&
-            su django-user -c 'python manage.py wait_for_db && 
-            python manage.py test'"
+          # Build first with the build arg
+          docker compose build --build-arg DEV=true app
+          # Then run the tests
+          docker compose run --rm \
+            -e DB_HOST -e DB_NAME -e DB_USER -e DB_PASS \
+            -e DJANGO_SECRET_KEY -e DJANGO_ALLOWED_HOSTS \
+            -e AFRICASTALKING_USERNAME -e AFRICASTALKING_API_KEY \
+            app sh -c "
+              mkdir -p /app/cov && 
+              chmod 777 /app/cov &&
+              su django-user -c 'python manage.py wait_for_db && 
+              python manage.py test'"
+      
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3
