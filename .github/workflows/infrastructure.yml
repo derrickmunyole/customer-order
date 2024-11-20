@@ -33,3 +33,4 @@ jobs:
           work-dir: ./infrastructure/pulumi
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          PULUMI_CONFIG_IP_ADDRESS: ${{ secrets.PULUMI_IP_ADDRESS }}
