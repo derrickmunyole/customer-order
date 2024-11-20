@@ -2,7 +2,7 @@ import pulumi
 import pulumi_aws as aws
 
 
-# Create a new VPC and subnet first (best practice)
+# Create a new VPC and subnet first
 vpc = aws.ec2.Vpc(
     "my-vpc",
     cidr_block="10.0.0.0/16",
@@ -15,12 +15,12 @@ subnet = aws.ec2.Subnet(
     "my-subnet",
     vpc_id=vpc.id,
     cidr_block="10.0.1.0/24",
-    availability_zone="us-east-1a",  # Change this to your desired AZ
+    availability_zone="us-east-1a",
     map_public_ip_on_launch=True,
     tags={"Name": "my-subnet"}
 )
 
-# Security group
+# Creating Security group
 security_group = aws.ec2.SecurityGroup(
     "web-secgrp",
     description="Enable HTTP access",
@@ -49,13 +49,13 @@ security_group = aws.ec2.SecurityGroup(
     ]
 )
 
-# EC2 instance
+# Creating EC2 instance
 instance = aws.ec2.Instance(
     "web-server",
     instance_type="t2.micro",
     vpc_security_group_ids=[security_group.id],
     subnet_id=subnet.id,
-    ami="ami-0c55b159cbfafe1f0",  # Ubuntu 20.04 LTS in us-east-1
+    ami="ami-0664c8f94c2a2261b",
     tags={"Name": "web-server"}
 )
 
