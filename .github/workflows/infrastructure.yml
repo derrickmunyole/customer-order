@@ -26,10 +26,13 @@ jobs:
           aws-region: us-east-1
       
       - name: Deploy Infrastructure
-        uses: pulumi/actions@v6
+        uses: pulumi/actions@v3
         with:
           command: ${{ github.event_name == 'pull_request' && 'preview' || 'up' }}
           stack-name: test
           work-dir: ./infrastructure/pulumi
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+
+
+
