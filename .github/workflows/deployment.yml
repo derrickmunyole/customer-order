@@ -37,7 +37,7 @@ jobs:
         
           
       - name: Run Ansible playbook
-        working-directory: .app/ansible
+        working-directory: app/ansible
         # Only execute playbook on main branch after successful infrastructure deployment
         if: |
           (github.event_name == 'workflow_run' && 
