@@ -45,13 +45,13 @@ To set up the project locally, follow these steps:
 # Configuration and Environment Variables
 
 The project uses the following environment variables:
-**GOOGLE_CLIENT_ID**: Your Google OAuth client ID.
-**GOOGLE_CLIENT_SECRET**: Your Google OAuth client secret.
-**AFRICASTALKING_API_KEY**: API key for sending SMS notifications.
-**POSTGRES_DB**: PostgreSQL database name.
-**POSTGRES_USER**: Database username.
-**POSTGRES_PASSWORD**: Database password.
-**DJANGO_SECRET_KEY** Django Secret Key
+**GOOGLE_CLIENT_ID**: Your Google OAuth client ID.  
+**GOOGLE_CLIENT_SECRET**: Your Google OAuth client secret.  
+**AFRICASTALKING_API_KEY**: API key for sending SMS notifications.  
+**POSTGRES_DB**: PostgreSQL database name.  
+**POSTGRES_USER**: Database username.  
+**POSTGRES_PASSWORD**: Database password.  
+**DJANGO_SECRET_KEY** Django Secret Key  
 
 ## Known Issues and Limitations
 **Functional Tests**: Currently incomplete; only unit and integration tests are included.  

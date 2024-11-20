@@ -1,0 +1,31 @@
+config:
+  forever_locket:ip_address:
+    secure: AAABAF6ad/JyDhHi46vk1TOctFhWgaom8UU7HfoBBvCmXv9kfiC2UMIJHnn8LA==
+  forever_locket:public_key:
+    secure: AAABAKeLuHh78Sp27q4Req4V5Muqx8Mh6NaxWYmZaTXkjJj3l+RXVPtmuzweZnGxfMypIwu7zlZy6sMsVHFpg3uH3r47Lx3y4RHPwurpHOAOz+bC5HQKgUT6sn4iZN+AUnzdMo/txuoV9nIzoYYqS5AZsNmMTrt0upt7fbGAxihO9e/JhqzoNrWI7TVgCHy1jVq9Dnqz7zFQW+DGvrd3CjEtkHDYBE488EkoRK60TsZBrpb4lqZDisZTmeEhsCcK1pPscttuzBJl3TPo/GER5zCCC5XFOZuHES3iuBRc2XGLWT4Rrj9K+PW4nvgrehysu1Xm2rzfBm+UgfqoKpuxaxGPFm6MkPkJmZsP4EdAxZr9UdZCVXM0wvffuLW07MGIZAaPmdkoCt5kW2nHjg9Zp6LWAMWbHr6JHR4G+H0W6Rpwn7871Y7WA1X/yuMv4+lYHwiTaPQSLCkWEjrd9wfR05f2Yx4M7kXvbI10FblxC7jeYvAMZ7fAGaE/tEfWt69Ikh6/Syi8r8TJvFioVGeW7SWrqNI4W/ybEbG/c8LdMOHqHgydjnf+aY7DDws32ibadDrfa6tNAk5ezUHW+i82oh37N/wcThQ0W15ji4MOgVxSX/bZUYB+1RcZPY/gHXlgsaXwBnOZffyS1b/NCmHVJxRdEMtNlOyOwEbnfuEyPdDOxJPs/jVy/wCijHMzuBpTI+DGpUHrl2tMWa6UgZ6GXktf0vNWnFm8MII6yMerM9DP53UrkOciLF9ATry0VzquCklVywnR0ydmFBAdq2WwAbfQseXllQ/fBtJskB+HBfO/x7Vd7gtxoCin0w7LNg2C2hoNQ4Rql42vByERdmNnwlkj9k+nt5LT2dbyEghPc82Q3J7RnwooE5dQ8LL1cyg8E8IuTTVPk4Qqgn0FEeYDLh4Y8kQvVRm33OOlr1qMYUErZ7mxo37yce5OXSUQBKHENAoB9mL7gkbZuP3nraSuOAtqe2FSxl+Excc3GOyjlGQNjqAR/ApNGGXyS+elsddofAjemHk7
+  forever_locket:africas_talking_api_key:
+    secure: AAABAA+GTqxmhcEB2Qy/qm3ffYPDIF+3xL+w2U0dHVNMwm4YFwqj699RHirl4tV3TbCva+eTtOVFcoFj8J7JlugQXeb8cRBrKugI+4OjevmjBuVBIE4QAYtHb9cBAekKJhZdjXVYmIgffuPDhA==
+  forever_locket:africas_talking_username:
+    secure: AAABAMl/IkbgXOBadkD/vFMuwjReks10Hd0WT3F7+uczNlc01tt6
+  forever_locket:db_host:
+    secure: AAABAIr1r/rN/3pkedhCClRhpTXfbrOBzOMv6Ra5jWIV3Q==
+  forever_locket:db_name:
+    secure: AAABAIHnA/1qhqdpzh0DtFhaMXHqvmyPVKVYJy6kmQkkLRYWniuArHZy
+  forever_locket:db_port:
+    secure: AAABAIVMeRNruEwwG7cu//4xYC/e0KIq3f1bUqj70irN5eHr
+  forever_locket:db_user:
+    secure: AAABAAYwsJ1mkc6hPk7Dp2r2m9nAHLnIGwxt1lWzYkr3wd+ikl54Q4OylX9zwQ==
+  forever_locket:django_secret_key:
+    secure: AAABAOrM5dOOLuatVF64B/99NP3vawszifTnQjKs7DifMBkKAUt0eyWdYpfbcKQm1apKG4Q7pNd7HzzcCOhrwMz1Ll5QRZGpRRz+xfUdASRmndyojsAYFAx3V40UdZ2Lx4sy
+  forever_locket:oidc_client_id:
+    secure: AAABALGJC9+abydufAV57Ttj1TdU9btdWj75HqmWq+sS1BDXPZww1oIA+8ktAfodYfOqsYdNsSsQtZg358WBye//WD13yjxd7WmwDywcrAEWjG1/wxn/ZqhUPxCizQEMwmUl6mtsX7E=
+  forever_locket:oidc_client_secret:
+    secure: AAABAMlnOVifgQ70aoaGc5ZpFtmrrjvNMZVNZz0HHSIqnB16Xz0pTR6W2F2IfJS2Pe12r+SJrDNcFcbZKFiAtrlTVg==
+  forever_locket:oidc_provider_url:
+    secure: AAABAExGOq088SSNaQbyR2/n7VORsU6930L981m54HuaVnTp1C5ghLh/uNQ6zao2G3INUWEgSTQueuY=
+  forever_locket:sb_password:
+    secure: AAABAAtcxJDst9mOWBtKrjdbnXlk2A8xCKS+YeIYnCNmnmsDjrJuSY4h1rA=
+  forever_locket:django_allowed_hosts:
+    secure: AAABANNTZ9F+cFvXoK3cNRNsL6CwOmJrekrsTMuWxIo0wGQDFD9/hMUCH75UkgYIG2gELMFRZLKtjmco8rdiRdY=
+  forever_locket:db_password:
+    secure: AAABADv3rYlqfwBN2HajfmmZdNLhM3MV/Vwg5XjHiG6N+hHHQYp5RgY7EQU=

@@ -59,12 +59,6 @@
         - infrastructure
 
 
-    - name: Debug variables
-      debug:
-        var: db_host
-
-
-
     - name: Create .env file
       copy:
         content: |

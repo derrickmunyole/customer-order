@@ -1,0 +1,55 @@
+name: Configure with Ansible
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'app/ansible/**'
+  workflow_run:
+    workflows: ["Infrastructure Deployment"]
+    types:
+      - completed
+    branches: [ main ]
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+          
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Get Pulumi outputs
+        working-directory: ./infrastructure/pulumi
+        if: |
+          github.event_name == 'workflow_run' && 
+          github.event.workflow_run.conclusion == 'success' && 
+          github.ref == 'refs/heads/main'
+        run: |
+          PUBLIC_IP=$(pulumi stack output public_ip --stack test)
+          echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+              
+      - name: Run Ansible playbook
+        working-directory: app/ansible
+        if: |
+          github.event_name == 'workflow_run' && 
+          github.event.workflow_run.conclusion == 'success' && 
+          github.ref == 'refs/heads/main'
+        run: |
+          ansible-playbook -i inventory.yml deploy.yml
+          
+      - name: Dry run Ansible playbook
+        working-directory: app/ansible
+        if: github.event_name == 'pull_request'
+        run: |
+          ansible-playbook -i inventory.yml deploy.yml --check --syntax-check
