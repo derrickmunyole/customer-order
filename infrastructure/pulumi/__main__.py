@@ -7,6 +7,27 @@ allowed_ip = config.require_secret('ip_address')
 public_key = config.require("public_key")
 
 
+# Django Configurations
+django_secret = config.require_secret('django_secret_key')
+django_allowed_hosts = config.require_secret('django_allowed_hosts')
+
+# Database configuration
+db_password = config.require_secret('db_password')
+db_user = config.require_secret('db_user')
+db_host = config.require_secret('db_host')
+db_port = config.require_secret('db_port')
+db_name = config.require_secret('db_name')
+
+# OAuth credentials
+oauth_client_id = config.require_secret('oauth_client_id')
+oauth_client_secret = config.require_secret('oauth_client_secret')
+oidc_provider_url = config.require_secret('oidc_provider_url')
+
+# API Credentials
+africas_talking_api_key = config.require_secret('africas_talking_api_key')
+africas_talking_username = config.require_secret('africas_talking_username')
+
+
 # Create a new VPC and subnet first
 vpc = aws.ec2.Vpc(
     "my-vpc",
