@@ -37,7 +37,7 @@ jobs:
         
           
       - name: Run Ansible playbook
-        working-directory: ./app/ansible
+        working-directory: app/ansible
         # Only execute playbook on main branch after successful infrastructure deployment
         if: |
           (github.event_name == 'workflow_run' && 
@@ -47,7 +47,7 @@ jobs:
           ansible-playbook -i inventory.yml playbook.yml
           
       - name: Dry run Ansible playbook
-        working-directory: ./app/ansible
+        working-directory: app/ansible
         # Execute dry run for pull requests
         if: github.event_name == 'pull_request'
         run: |
