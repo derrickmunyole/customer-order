@@ -1,0 +1,30 @@
+name: Configure with Ansible
+on:
+  workflow_run:
+    workflows: ["Deploy Infrastructure and Configure"]
+    types:
+      - completed
+    branches: [ main ]
+
+jobs:
+  configure:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+          
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+      - name: Run Ansible playbook
+        working-directory: ./ansible
+        run: |
+          ansible-playbook -i inventory.yml playbook.yml
