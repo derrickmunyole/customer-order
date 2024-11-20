@@ -1,14 +1,17 @@
 name: Configure with Ansible
 on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'ansible/**'
   workflow_run:
-    workflows: ["Deploy Infrastructure and Configure"]
+    workflows: ["Infrastructure Deployment"]
     types:
       - completed
     branches: [ main ]
 
 jobs:
   configure:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -26,5 +29,17 @@ jobs:
           
       - name: Run Ansible playbook
         working-directory: ./ansible
+        # Only execute playbook on main branch after successful infrastructure deployment
+        if: |
+          (github.event_name == 'workflow_run' && 
+           github.event.workflow_run.conclusion == 'success' && 
+           github.ref == 'refs/heads/main')
         run: |
           ansible-playbook -i inventory.yml playbook.yml
+          
+      - name: Dry run Ansible playbook
+        working-directory: ./ansible
+        # Execute dry run for pull requests
+        if: github.event_name == 'pull_request'
+        run: |
+          ansible-playbook -i inventory.yml playbook.yml --check
