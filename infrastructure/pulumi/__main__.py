@@ -4,6 +4,7 @@ import pulumi_aws as aws
 
 config = pulumi.Config()
 allowed_ip = config.require_secret('ip_address')
+public_key = config.require("public_key")
 
 
 # Create a new VPC and subnet first
@@ -51,6 +52,12 @@ security_group = aws.ec2.SecurityGroup(
             "cidr_blocks": ["0.0.0.0/0"]
         }
     ]
+)
+
+# Create a key pair
+key_pair = aws.ec2.KeyPair(
+    "foreverlc-ec2",
+    public_key=public_key
 )
 
 # Creating EC2 instance
