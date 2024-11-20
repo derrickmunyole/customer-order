@@ -28,7 +28,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
 
       - name: Get Pulumi outputs
-        working-directory: .app/infrastructure/pulumi
+        working-directory: ./app/infrastructure/pulumi
         run: |
           PUBLIC_IP=$(pulumi stack output public_ip)
           echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_ENV
@@ -37,7 +37,7 @@ jobs:
         
           
       - name: Run Ansible playbook
-        working-directory: app/ansible
+        working-directory: ./app/ansible
         # Only execute playbook on main branch after successful infrastructure deployment
         if: |
           (github.event_name == 'workflow_run' && 
