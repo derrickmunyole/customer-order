@@ -1,7 +1,13 @@
-name: Deploy Infrastructure and Configure
+name: Infrastructure Deployment
 on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'infrastructure/**'
   push:
     branches: [ main ]
+    paths:
+      - 'infrastructure/**'
 
 jobs:
   deploy:
@@ -20,7 +26,10 @@ jobs:
           aws-region: us-east-1
       
       - name: Deploy Infrastructure
-        working-directory: ./infrastructure
-        run: pulumi up --yes
+        uses: pulumi/actions@v6
+        with:
+          command: ${{ github.event_name == 'pull_request' && 'preview' || 'up' }}
+          stack-name: test
+          work-dir: ./infrastructure/pulumi
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
