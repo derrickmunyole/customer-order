@@ -2,8 +2,6 @@ name: Configure with Ansible
 on:
   pull_request:
     branches: [ main ]
-    paths:
-      - 'app/ansible/**'
   workflow_run:
     workflows: ["Infrastructure Deployment"]
     types:
