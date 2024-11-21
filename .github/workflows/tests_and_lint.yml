@@ -58,8 +58,10 @@ jobs:
         env:
           SAFETY_API_KEY: ${{secrets.SAFETY_API_KEY}}
         run: |
-          docker compose run --rm app sh -c "
-            bandit -r . -ll &&
-            safety scan --key $SAFETY_API_KEY"
+          docker compose run --rm \
+            -e SAFETY_API_KEY \
+            app sh -c "
+              bandit -r . -ll &&
+              safety scan --key $SAFETY_API_KEY"
 
       
