@@ -11,17 +11,24 @@
   hosts: all
   tasks:
     - block:
+        - name: Create keyrings directory
+          file:
+            path: /etc/apt/keyrings
+            state: directory
+            mode: '0755'
+          when: ansible_distribution == 'Ubuntu'
+
         - name: Add Docker GPG key (Ubuntu)
           when: ansible_distribution == 'Ubuntu'
-          get_url:
+          ansible.builtin.apt_key:
             url: https://download.docker.com/linux/ubuntu/gpg
-            dest: /etc/apt/keyrings/docker.gpg
-            mode: '0644'
+            state: present
+            id: 7EA0A9C3F273FCD8
 
         - name: Add Docker repository (Ubuntu)
           when: ansible_distribution == 'Ubuntu'
           apt_repository:
-            repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+            repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
             state: present
 
 
