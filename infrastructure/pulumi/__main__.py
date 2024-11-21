@@ -30,7 +30,7 @@ africas_talking_username = config.require_secret('africas_talking_username')
 
 # Create a new VPC and subnet first
 vpc = aws.ec2.Vpc(
-    "my-vpc",
+    "foreverLc-vpc",
     cidr_block="10.0.0.0/16",
     enable_dns_hostnames=True,
     enable_dns_support=True,
@@ -38,7 +38,7 @@ vpc = aws.ec2.Vpc(
 )
 
 subnet = aws.ec2.Subnet(
-    "my-subnet",
+    "foreverLc-subnet",
     vpc_id=vpc.id,
     cidr_block="10.0.1.0/24",
     availability_zone="us-east-1a",

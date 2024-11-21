@@ -7,7 +7,7 @@
     app_dir: "/opt/django-app"
     env_file: "{{ app_dir }}/.env"
   
-- name: Add Docker repository   -> Determine whether runnung on ubuntu-based systems or redhat based systems
+- name: Add Docker repository
   hosts: all
   tasks:
     - block:
@@ -23,14 +23,6 @@
           apt_repository:
             repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
             state: present
-
-        - name: Add Docker repository (Fedora/RHEL)
-          when: ansible_distribution == 'Fedora' or ansible_distribution == 'RedHat'
-          get_url:
-            url: https://download.docker.com/linux/fedora/docker-ce.repo
-            dest: /etc/yum.repos.d/docker-ce.repo
-      become: yes
-
 
 
     - name: Install required packages

@@ -39,17 +39,18 @@ jobs:
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
               
-      - name: Run Ansible playbook
-        working-directory: app/ansible
+      - name: Dry run Ansible playbook
+        working-directory: ./app/ansible
+        if: github.event_name == 'pull_request'
+        run: |
+          ansible-playbook -i inventory.yml deploy.yml --check --syntax-check
+        
+      - name: Run full Ansible playbook
+        working-directory: ./app/ansible
         if: |
           github.event_name == 'workflow_run' && 
           github.event.workflow_run.conclusion == 'success' && 
           github.ref == 'refs/heads/main'
         run: |
           ansible-playbook -i inventory.yml deploy.yml
-          
-      - name: Dry run Ansible playbook
-        working-directory: app/ansible
-        if: github.event_name == 'pull_request'
-        run: |
-          ansible-playbook -i inventory.yml deploy.yml --check --syntax-check
+        
