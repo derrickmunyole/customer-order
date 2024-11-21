@@ -1,0 +1,9 @@
+db_host: localhost
+db_port: 5432
+db_name: your_db_name
+db_user: your_db_user
+africas_talking_api_key: your_api_key
+africas_talking_username: your_username
+oidc_client_id: your_client_id
+oidc_client_secret: your_client_secret
+oidc_provider_url: https://your-oidc-provider.com
