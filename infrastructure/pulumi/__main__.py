@@ -83,7 +83,7 @@ key_pair = aws.ec2.KeyPair(
 
 # Creating EC2 instance
 instance = aws.ec2.Instance(
-    "web-server",
+    "foreverLc-web-server",
     instance_type="t2.micro",
     vpc_security_group_ids=[security_group.id],
     subnet_id=subnet.id,
