@@ -53,14 +53,13 @@ jobs:
       - name: Lint
         run: docker compose run --rm app sh -c "flake8"
 
-      - name: Install security scanning tools
-        run: |
-          pip install bandit safety
       
       - name: Run security scans
         env:
           SAFETY_API_KEY: ${{secrets.SAFETY_API_KEY}}
         run: |
-          bandit -r ./app -ll  # Scan source code for security issues
-          safety scan  --key $SAFETY_API_KEY   # Scan dependencies for known vulnerabilities
+          docker compose run --rm app sh -c "
+            bandit -r . -ll &&
+            safety scan --key $SAFETY_API_KEY"
+
       
