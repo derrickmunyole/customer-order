@@ -13,38 +13,47 @@ RUN python -m venv /py && \
     # Install build dependencies
     apk add --update --no-cache --virtual .tmp-build-deps \
         build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
-    /py/bin/pip wheel --no-cache-dir --no-deps --wheel-dir /tmp/wheels -r /tmp/requirements.txt && \
+    # Install Cython for building wheels
+    /py/bin/pip install cython && \
+    # Create wheels directory for production
+    mkdir -p /tmp/wheels/prod && \
+    /py/bin/pip wheel --no-cache-dir --no-deps --wheel-dir /tmp/wheels/prod -r /tmp/requirements.txt && \
     if [ "$DEV" = "true" ] ; then \
-        /py/bin/pip install --no-cache-dir -r /tmp/requirements.dev.txt ; \
+        mkdir -p /tmp/wheels/dev && \
+        /py/bin/pip wheel --no-cache-dir --no-deps --wheel-dir /tmp/wheels/dev -r /tmp/requirements.dev.txt ; \
     fi
-
 
 # Final stage
 FROM python:3.13-alpine
+ARG DEV=false
 ENV PYTHONUNBUFFERED 1
 
-# Copy built wheels from builder
-COPY --from=builder /tmp/wheels /tmp/wheels
+# Copy wheels and virtual environment
+COPY --from=builder /tmp/wheels/prod /tmp/wheels/prod
 COPY --from=builder /py /py
-
-# Install production dependencies
-RUN apk add --update --no-cache \
-        postgresql-client \
-        nodejs \
-        npm && \
-    /py/bin/pip install --no-cache-dir /tmp/wheels/* && \
-    rm -rf /tmp && \
-    adduser --disabled-password django-user
-
-ENV PATH="/py/bin:$PATH"
 
 # Copy application code
 COPY ./app /app
 WORKDIR /app
 
-# Set up permissions
-RUN mkdir -p /app/cov && \
+# RUN command for container setup
+RUN apk add --update --no-cache \
+        postgresql-client \
+        nodejs \
+        npm && \
+    mkdir -p /tmp/wheels/dev && \
+    /py/bin/pip install --no-cache-dir /tmp/wheels/prod/* && \
+    if [ "$DEV" = "true" ] ; then \
+        cp -r /tmp/wheels/dev/* /tmp/wheels/dev/ || true && \
+        /py/bin/pip install --no-cache-dir /tmp/wheels/dev/* || true ; \
+    fi && \
+    rm -rf /tmp && \
+    adduser --disabled-password django-user && \
+    mkdir -p /app/cov && \
     chown -R django-user:django-user /app
+
+
+ENV PATH="/py/bin:$PATH"
 
 EXPOSE 8000
 
