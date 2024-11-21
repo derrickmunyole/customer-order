@@ -33,19 +33,26 @@ COPY --from=builder /py /py
 COPY ./app /app
 WORKDIR /app
 
-# RUN command for container setup
+# Install dependencies
 RUN apk add --update --no-cache \
         postgresql-client \
         nodejs \
-        npm && \
+        npm \
+        gcc \
+        python3-dev \
+        musl-dev \
+        linux-headers && \
     /py/bin/pip install --no-cache-dir /tmp/wheels/prod/* && \
     if [ "$DEV" = "true" ] ; then \
         /py/bin/pip install --no-cache-dir /tmp/wheels/dev/* ; \
     fi && \
+    # Clean up build dependencies and temp files
+    apk del gcc python3-dev musl-dev linux-headers && \
     rm -rf /tmp && \
     adduser --disabled-password django-user && \
     mkdir -p /app/cov && \
     chown -R django-user:django-user /app
+
 
 ENV PATH="/py/bin:$PATH"
 
