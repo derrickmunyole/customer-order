@@ -3,7 +3,7 @@ services:
       build:
         context: .
         args:
-          - DEV=False   
+          - DEV=false   
       expose:
         - "8000"
       volumes:
