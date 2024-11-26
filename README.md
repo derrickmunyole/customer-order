@@ -27,13 +27,22 @@ To set up the project locally, follow these steps:
 1. Clone this repository:
    ```bash
    git clone <repo-url>
-   cd customer-order
+   cd customer-order  
 
- 2. cp .env.example .env
+2. Create an account with africastalking and generate an api key
 
- 3. docker-compose up --build
+3. Register an oauth app and generate client and secret keys at google console  
 
- 4. Access the app at http://localhost:8000
+4. cp .env.example .env  
+
+5. docker-compose up --build  
+
+6. Create a superuser to login to django admin
+
+7. Add a social application named google and register it with the acquired client_id and client_secret
+
+6. Access the app at http://localhost:8000 
+
 
  # Usage
 
