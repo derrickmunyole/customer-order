@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load socialaccount %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold">Sign In</h2>
+            <p class="mt-2 text-gray-600">Welcome back</p>
+        </div>
+        
+        <div class="mt-8">
+            <a href="{% provider_login_url 'google' next=request.GET.next %}"
+                class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition duration-200 ease-in-out">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Your existing Google SVG path -->
+                </svg>
+                Sign In with Google
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
