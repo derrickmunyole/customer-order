@@ -1,11 +1,12 @@
 ---
+vars:
+    app_dir: "/opt/django-app"
+    env_file: "{{ app_dir }}/.env"
+
 - name: Deploy Django Application with Docker
   hosts: localhost
   connection: local
   become: yes
-  vars:
-    app_dir: "/opt/django-app"
-    env_file: "{{ app_dir }}/.env"
   
 - name: Add Docker repository
   hosts: all
